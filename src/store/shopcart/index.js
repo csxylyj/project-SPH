@@ -49,6 +49,15 @@ const actions={
 const getters={
     cartList(state){
         return state.cartList[0]||{}
+    },
+    checkedNum(state){
+        let num = 0
+        if(state.cartList[0]){
+            state.cartList[0].cartInfoList.forEach((item)=>{
+                if(item.isChecked==1) num++
+            })
+        }
+        return num
     }
 }
 

@@ -51,7 +51,7 @@
       </div>
       <div class="money-box">
         <div class="chosed">已选择
-          <span>{{}}</span>件商品</div>
+          <span>{{checkedNum}} </span>件商品</div>
         <div class="sumprice">
           <em>总价（不含运费） ：</em>
           <i class="summoney">{{totalPrice}}</i>
@@ -137,7 +137,7 @@ import throttle from "lodash/throttle"
       }
     },
     computed:{
-      ...mapGetters(["cartList"]),
+      ...mapGetters(["cartList","checkedNum"]),
       cartInfoList(){
         return this.cartList.cartInfoList||[]
       },
