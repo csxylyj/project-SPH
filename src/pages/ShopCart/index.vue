@@ -41,11 +41,11 @@
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox" :checked="isAllCheck">
+        <input class="chooseAll" type="checkbox" :checked="isAllCheck&&cartInfoList.length>0" @change="isAllChecked">
         <span>全选</span>
       </div>
       <div class="option">
-        <a href="#none">删除选中的商品</a>
+        <a  @click="deleteCheck">删除选中的商品</a>
         <a href="#none">移到我的关注</a>
         <a href="#none">清除下柜商品</a>
       </div>
@@ -108,14 +108,32 @@ import throttle from "lodash/throttle"
         }
         
       },
-      updateCheck(cart,event){
+      async updateCheck(cart,event){
         try{
-          let isChecked = event.target.checked ? 1:0
-          this.$store.dispatch("updateCheckById",{skuId:cart.skuId,isChecked})
+          let isChecked = event.target.checked ? "1":"0"
+          await this.$store.dispatch("updateCheckById",{skuId:cart.skuId,isChecked})
           this.getData()
         }catch(error){
           alert(error.message)
         }
+      },
+      async deleteCheck(){
+        try{
+            await this.$store.dispatch("deleteAllCheck")
+            this.getData()
+        }catch(error){
+          alert(error.message)
+        }
+      },
+      async isAllChecked(event){
+        try{
+          let isChecked = event.target.checked?'1':'0'
+          await this.$store.dispatch("isAllChecked",isChecked)
+          this.getData()
+        }catch(error){
+          alert(error.message)
+        }
+
       }
     },
     computed:{
