@@ -17,7 +17,7 @@
       :class="{ active: pageNo == num }"
       v-for="(num, index) in startNumAndEndNum.end"
       :key="index"
-      v-if="num >= startNumAndEndNum.start"
+      v-if="num > startNumAndEndNum.start"
       @click="$emit('getPageNo', num)"
     >
       {{ num }}

@@ -30,6 +30,7 @@ import {mapState} from "vuex"
         },
         mounted(){
             this.$store.dispatch("getFloorsList")
+            this.$store.dispatch("userInfo")
         },
         computed:{
             ...mapState({
