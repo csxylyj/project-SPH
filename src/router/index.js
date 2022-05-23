@@ -3,6 +3,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import routes from "./routes"
+import store from '@/store';
+
 
 //保存原有的push方法
 let originPush = VueRouter.prototype.push;
@@ -37,10 +39,37 @@ VueRouter.prototype.replace = function(location,resolve,reject){
 // 使用插件
 Vue.use(VueRouter)
 // 配置路由
-export default new VueRouter({
+let router = new VueRouter({
     routes,
     scrollBehavior(to, from, savedPosition) {
         // 始终滚动到顶部
         return { y: 0 }
       }
 })
+
+router.beforeEach(async (to,from,next)=>{
+    next()
+    let token = store.state.user.token
+    let name = store.state.user.userInfo.name
+    if(token){
+        if(to.path=="/login"||to.path=="/register"){
+            next('/home')
+        }else{
+            if(name){
+                next()
+            }else{
+                try {
+                    await store.dispatch("userInfo")
+                    next()
+                } catch (error) {
+                    await store.dispatch("userLogout")
+                    next("/login")
+                }
+            }
+        }
+    }else{
+        next()
+    }
+})
+
+export default router;

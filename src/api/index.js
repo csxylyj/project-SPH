@@ -32,3 +32,7 @@ export const reqUserLogin =(data) => requests({url:"/user/passport/login",data,m
 export const reqUserInfo = ()=> requests({url:'/user/passport/auth/getUserInfo',method:'get'}) 
 
 export const reqLogout = () => requests({url:"/user/passport/logout",method:"get"})
+
+export const reqAddressInfo =()=> requests({url:"/user/userAddress/auth/findUserAddressList",method:"get"})
+
+export const reqOrderInfo =() => requests({url:'/order/auth/trade',method:'get'})
