@@ -79,7 +79,8 @@
         try {
           const {phone,password} = this;
           (phone&&password)&& await this.$store.dispatch("userLogin",{phone,password})
-          this.$router.push('/home')
+          let topath = this.$route.query.redirect||'/home'
+          this.$router.push(topath)
         } catch (error) {
           console.log(error.message)
         }

@@ -7,10 +7,11 @@ const state={
 const mutations={
     GETADDRESS(state,address){
         state.address=address
+        state.address[0].isDefault=1
     },
     GETORDER(state,order){
         state.order=order
-    }
+    },
 }
 const actions={
     async getAddress({commit}){

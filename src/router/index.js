@@ -68,7 +68,12 @@ router.beforeEach(async (to,from,next)=>{
             }
         }
     }else{
-        next()
+        let topath = to.path
+        if(topath.indexOf('/trade')!=-1||topath.indexOf('/center')!=-1||topath.indexOf('/center')!=-1){
+            next("/login?redirect="+topath)
+        }else{
+            next()
+        }
     }
 })
 
